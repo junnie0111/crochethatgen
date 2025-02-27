@@ -1,0 +1,689 @@
+<style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #6b5b95;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6b5b95;
+            padding-bottom: 10px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        select:focus, input:focus {
+            border-color: #6b5b95;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #6b5b95;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+        button:hover {
+            background-color: #574a7a;
+        }
+        button#download-pdf {
+            background-color: #5a92d6;
+        }
+        button#download-pdf:hover {
+            background-color: #4775ad;
+        }
+        #pattern-output {
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            line-height: 1.6;
+        }
+        #pattern-output h2 {
+            color: #6b5b95;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        #pattern-output h3 {
+            color: #5a92d6;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        #pattern-output p {
+            margin-bottom: 12px;
+        }
+        #pattern-output ul {
+            padding-left: 25px;
+        }
+        #pattern-output li {
+            margin-bottom: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .form-container {
+                padding: 15px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            #pattern-output {
+                padding: 15px;
+            }
+        }
+    </style>    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #6b5b95;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6b5b95;
+            padding-bottom: 10px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        select:focus, input:focus {
+            border-color: #6b5b95;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #6b5b95;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+        button:hover {
+            background-color: #574a7a;
+        }
+        button#download-pdf {
+            background-color: #5a92d6;
+        }
+        button#download-pdf:hover {
+            background-color: #4775ad;
+        }
+        #pattern-output {
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            line-height: 1.6;
+        }
+        #pattern-output h2 {
+            color: #6b5b95;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        #pattern-output h3 {
+            color: #5a92d6;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        #pattern-output p {
+            margin-bottom: 12px;
+        }
+        #pattern-output ul {
+            padding-left: 25px;
+        }
+        #pattern-output li {
+            margin-bottom: 8px;
+        }
+    </style><!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Hat Pattern Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #6b5b95;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6b5b95;
+            padding-bottom: 10px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        select:focus, input:focus {
+            border-color: #6b5b95;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #6b5b95;
+            color
+</head>
+<body>
+    <h1>Custom Hat Pattern Generator</h1>
+    
+    <div class="form-container">
+        <p>Enter your preferences below to generate a custom crochet hat pattern.</p>
+        
+        <form id="pattern-form">
+            <div class="form-group">
+                <label for="hat-size">Hat Size:</label>
+                <select id="hat-size" name="hat-size">
+                    <option value="baby">Baby (0-6 months)</option>
+                    <option value="toddler">Toddler (1-3 years)</option>
+                    <option value="child">Child (4-10 years)</option>
+                    <option value="adult-small">Adult Small</option>
+                    <option value="adult-medium" selected>Adult Medium</option>
+                    <option value="adult-large">Adult Large</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="yarn-weight">Yarn Weight:</label>
+                <select id="yarn-weight" name="yarn-weight">
+                    <option value="fingering">Fingering / Sock (1)</option>
+                    <option value="sport">Sport / Baby (2)</option>
+                    <option value="dk">DK / Light Worsted (3)</option>
+                    <option value="worsted" selected>Worsted / Medium (4)</option>
+                    <option value="bulky">Bulky (5)</option>
+                    <option value="super-bulky">Super Bulky (6)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="stitch-type">Main Stitch Pattern:</label>
+                <select id="stitch-type" name="stitch-type">
+                    <option value="sc" selected>Single Crochet</option>
+                    <option value="hdc">Half Double Crochet</option>
+                    <option value="dc">Double Crochet</option>
+                    <option value="tr">Treble Crochet</option>
+                    <option value="sc-ribbing">Single Crochet Ribbing</option>
+                    <option value="hdc-ribbing">Half Double Crochet Ribbing</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="hook-size">Hook Size (optional):</label>
+                <input type="text" id="hook-size" name="hook-size" placeholder="Leave blank for recommended size">
+            </div>
+
+            <div class="form-group">
+                <label for="brim-type">Brim Style:</label>
+                <select id="brim-type" name="brim-type">
+                    <option value="none">No Brim</option>
+                    <option value="ribbed">Ribbed Brim</option>
+                    <option value="folded">Folded Brim</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="brim-length-group">
+                <label for="brim-length">Brim Length (inches):</label>
+                <input type="number" id="brim-length" name="brim-length" value="2" min="1" max="6" step="0.5">
+            </div>
+            
+            <div class="button-group">
+                <button type="button" id="generate-button">Generate Pattern</button>
+                <button type="button" id="download-pdf">Download PDF</button>
+            </div>
+        </form>
+    </div>
+    
+    <div id="pattern-output"></div>
+    
+    <script>
+        // Add the jsPDF library for PDF generation
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        document.head.appendChild(script);
+
+        // Set up the UI when document is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initially handle the brim length visibility
+            const brimTypeSelect = document.getElementById('brim-type');
+            const brimLengthGroup = document.getElementById('brim-length-group');
+            
+            function updateBrimLengthVisibility() {
+                if (brimTypeSelect.value === 'none') {
+                    brimLengthGroup.classList.add('hidden');
+                } else {
+                    brimLengthGroup.classList.remove('hidden');
+                }
+            }
+            
+            // Set initial state
+            updateBrimLengthVisibility();
+            
+            // Add event listener for changes
+            brimTypeSelect.addEventListener('change', updateBrimLengthVisibility);
+        });
+
+        // Function to generate the pattern
+        function generatePattern() {
+            // Get all the values from our form
+            const hatSize = document.getElementById('hat-size').value;
+            const yarnWeight = document.getElementById('yarn-weight').value;
+            const stitchType = document.getElementById('stitch-type').value;
+            let hookSize = document.getElementById('hook-size').value;
+            const brimType = document.getElementById('brim-type').value;
+            const brimLength = parseFloat(document.getElementById('brim-length').value);
+            
+            // Calculate hat measurements based on size
+            let headCircumference;
+            let height;
+            switch(hatSize) {
+                case 'baby':
+                    headCircumference = 14; // inches
+                    height = 5;
+                    break;
+                case 'toddler':
+                    headCircumference = 16;
+                    height = 6;
+                    break;
+                case 'child':
+                    headCircumference = 18;
+                    height = 7;
+                    break;
+                case 'adult-small':
+                    headCircumference = 20;
+                    height = 8;
+                    break;
+                case 'adult-medium':
+                    headCircumference = 22;
+                    height = 8.5;
+                    break;
+                case 'adult-large':
+                    headCircumference = 24;
+                    height = 9;
+                    break;
+            }
+            
+            // Calculate gauge based on yarn weight and stitch type
+            let stitchesPerInch;
+            let recommendedHook;
+            
+            // Set gauge and recommended hook size based on yarn weight
+            switch(yarnWeight) {
+                case 'fingering':
+                    stitchesPerInch = stitchType.includes('sc') ? 7 : (stitchType.includes('hdc') ? 6 : 5);
+                    recommendedHook = 'B-1 to E-4 (2.25-3.5mm)';
+                    break;
+                case 'sport':
+                    stitchesPerInch = stitchType.includes('sc') ? 6 : (stitchType.includes('hdc') ? 5 : 4);
+                    recommendedHook = 'E-4 to 7 (3.5-4.5mm)';
+                    break;
+                case 'dk':
+                    stitchesPerInch = stitchType.includes('sc') ? 5 : (stitchType.includes('hdc') ? 4.5 : 4);
+                    recommendedHook = 'G-6 to 7 (4.0-4.5mm)';
+                    break;
+                case 'worsted':
+                    stitchesPerInch = stitchType.includes('sc') ? 4 : (stitchType.includes('hdc') ? 3.5 : 3);
+                    recommendedHook = 'I-9 to K-10.5 (5.5-6.5mm)';
+                    break;
+                case 'bulky':
+                    stitchesPerInch = stitchType.includes('sc') ? 3 : (stitchType.includes('hdc') ? 2.5 : 2);
+                    recommendedHook = 'L-11 to P-15 (8.0-10.0mm)';
+                    break;
+                case 'super-bulky':
+                    stitchesPerInch = stitchType.includes('sc') ? 2 : (stitchType.includes('hdc') ? 1.75 : 1.5);
+                    recommendedHook = 'P-15 to Q (10.0-15.0mm)';
+                    break;
+            }
+            
+            // If user didn't specify a hook size, use the recommended one
+            if (!hookSize) {
+                hookSize = recommendedHook;
+            }
+            
+            // Calculate the number of stitches needed for the starting chain
+            // Reducing by 10% from head circumference for stretch
+            const adjustedCircumference = headCircumference * 0.9;
+            const startingStitches = Math.round(adjustedCircumference * stitchesPerInch);
+            
+            // Making sure starting stitches is divisible by 4 for even decreases
+            const correctedStitches = Math.ceil(startingStitches / 4) * 4;
+            
+            // Calculate rows needed to reach desired height before decreases
+            const rowsBeforeDecrease = Math.floor(height * 0.7);
+            
+            // Determine stitch instructions based on stitch type
+            let stitchInstructions;
+            switch(stitchType) {
+                case 'sc':
+                    stitchInstructions = "single crochet (sc) in each stitch around";
+                    break;
+                case 'hdc':
+                    stitchInstructions = "half double crochet (hdc) in each stitch around";
+                    break;
+                case 'dc':
+                    stitchInstructions = "double crochet (dc) in each stitch around";
+                    break;
+                case 'tr':
+                    stitchInstructions = "treble crochet (tr) in each stitch around";
+                    break;
+                case 'sc-ribbing':
+                    stitchInstructions = "single crochet in back loop only (sc-blo) in each stitch around";
+                    break;
+                case 'hdc-ribbing':
+                    stitchInstructions = "half double crochet in back loop only (hdc-blo) in each stitch around";
+                    break;
+            }
+            
+            // Generate the pattern with brim instructions
+            let brimInstructions = '';
+            let patternTitle = 'Your Custom Hat Pattern';
+            
+            // Calculate brim rows based on brim length and stitch height
+            const stitchHeight = stitchType.includes('sc') ? 0.5 : (stitchType.includes('hdc') ? 0.6 : (stitchType.includes('dc') ? 0.75 : 1));
+            const brimRows = Math.round(brimLength / stitchHeight);
+            
+            // Adjust pattern for different brim types
+            if (brimType === 'ribbed') {
+                patternTitle = 'Your Custom Hat with Ribbed Brim';
+                brimInstructions = `
+                <h3>Brim Instructions (Work First)</h3>
+                <p><strong>Foundation:</strong> Chain ${Math.round(correctedStitches + 1)}, join with a slip stitch to form a ring, being careful not to twist chain.</p>
+                <p><strong>Round 1:</strong> Ch 1, sc in each chain around. Join with a slip stitch to first sc. (${correctedStitches} stitches)</p>
+                <p><strong>Rounds 2-${brimRows}:</strong> Ch 1, sc in back loop only of each stitch around. Join with a slip stitch to first sc. (${correctedStitches} stitches)</p>
+                <p><strong>Begin Main Hat Pattern:</strong> Continue with Round 1 of main hat body.</p>
+                `;
+            } else if (brimType === 'folded') {
+                patternTitle = 'Your Custom Hat with Folded Brim';
+                brimInstructions = `
+                <h3>Brim Instructions (Work First)</h3>
+                <p><strong>Foundation:</strong> Chain ${Math.round(correctedStitches + 1)}, join with a slip stitch to form a ring, being careful not to twist chain.</p>
+                <p><strong>Round 1:</strong> Ch ${stitchType.includes('sc') ? 1 : (stitchType.includes('hdc') ? 2 : 3)}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in each chain around. Join with a slip stitch to first stitch. (${correctedStitches} stitches)</p>
+                <p><strong>Rounds 2-${brimRows * 2}:</strong> Ch ${stitchType.includes('sc') ? 1 : (stitchType.includes('hdc') ? 2 : 3)}, ${stitchInstructions}. Join with a slip stitch to first stitch. (${correctedStitches} stitches)</p>
+                <p><strong>Note:</strong> The brim will be folded up after completion, creating a double-thick brim approximately ${brimLength} inches high.</p>
+                <p><strong>Begin Main Hat Pattern:</strong> Continue with Round 1 of main hat body.</p>
+                `;
+            }
+            
+            // Generate the final pattern HTML
+            let pattern = `
+                <h2>${patternTitle}</h2>
+                
+                <h3>Materials</h3>
+                <ul>
+                    <li>${yarnWeight.replace('-', ' ')} weight yarn</li>
+                    <li>${hookSize} crochet hook</li>
+                    <li>Yarn needle for weaving in ends</li>
+                    <li>Stitch marker</li>
+                </ul>
+                
+                <h3>Gauge</h3>
+                <p>Approximately ${stitchesPerInch} stitches per inch in pattern</p>
+                
+                <h3>Finished Measurements</h3>
+                <p>Circumference: ${headCircumference} inches<br>
+                Height: ${height + (brimType !== 'none' ? brimLength : 0)} inches${brimType !== 'none' ? ` (including ${brimLength}" brim)` : ''}</p>
+                
+                <h3>Notes</h3>
+                <p>This hat is worked in continuous rounds. Use a stitch marker to mark the beginning of each round.</p>
+                
+                ${brimInstructions}
+                
+                <h3>Main Hat Instructions</h3>
+                ${brimType !== 'none' ? '<p><strong>Note:</strong> Begin these instructions after completing the brim.</p>' : `
+                <p><strong>Foundation:</strong> Chain ${stitchType.includes('sc') ? 2 : (stitchType.includes('hdc') ? 3 : 4)}, join with a slip stitch to form a ring.</p>
+                `}
+                
+                <p><strong>Round 1:</strong> Ch ${stitchType.includes('sc') ? 1 : (stitchType.includes('hdc') ? 2 : 3)} (counts as first stitch), work ${correctedStitches - 1} ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} into the ring. Place marker for beginning of round. (${correctedStitches} stitches)</p>
+                
+                <p><strong>Rounds 2-${rowsBeforeDecrease}:</strong> ${stitchInstructions}. (${correctedStitches} stitches)</p>
+                
+                <p><strong>Beginning Decreases:</strong></p>
+                <p><strong>Round ${rowsBeforeDecrease + 1}:</strong> *${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in next 6 stitches; repeat from * around. (${Math.round(correctedStitches * 0.875)} stitches)</p>
+                
+                <p><strong>Round ${rowsBeforeDecrease + 2}:</strong> *${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in next 5 stitches; repeat from * around. (${Math.round(correctedStitches * 0.75)} stitches)</p>
+                
+                <p><strong>Round ${rowsBeforeDecrease + 3}:</strong> *${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in next 4 stitches; repeat from * around. (${Math.round(correctedStitches * 0.625)} stitches)</p>
+                
+                <p><strong>Round ${rowsBeforeDecrease + 4}:</strong> *${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in next 3 stitches; repeat from * around. (${Math.round(correctedStitches * 0.5)} stitches)</p>
+                
+                <p><strong>Round ${rowsBeforeDecrease + 5}:</strong> *${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in next 2 stitches; repeat from * around. (${Math.round(correctedStitches * 0.375)} stitches)</p>
+                
+                <p><strong>Round ${rowsBeforeDecrease + 6}:</strong> *${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))}, ${stitchType === 'sc' ? 'sc' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc' : (stitchType === 'dc' ? 'dc' : 'tr'))} in next stitch; repeat from * around. (${Math.round(correctedStitches * 0.25)} stitches)</p>
+                
+                <p><strong>Round ${rowsBeforeDecrease + 7}:</strong> ${stitchType === 'sc' || stitchType === 'sc-ribbing' ? 'sc2tog' : (stitchType === 'hdc' || stitchType === 'hdc-ribbing' ? 'hdc2tog' : (stitchType === 'dc' ? 'dc2tog' : 'tr2tog'))} around. (${Math.round(correctedStitches * 0.125)} stitches)</p>
+                
+                <p><strong>Finishing:</strong> Cut yarn, leaving a 6-inch tail. Thread tail through remaining stitches and pull tight to close. Weave in all ends.</p>
+                
+                <h3>Additional Notes</h3>
+                <p>You can add a pompom, tassel, or other embellishments to the top of the hat if desired.</p>
+            `;
+            
+            // Return the pattern HTML
+            return pattern;
+        }
+
+        // Function to generate PDF from pattern HTML
+        function generatePDF(patternHTML) {
+            // Check if jsPDF is loaded
+            if (typeof window.jspdf === 'undefined') {
+                alert("PDF library is still loading. Please try again in a moment.");
+                return;
+            }
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Extract title from HTML
+            const titleMatch = patternHTML.match(/<h2>(.*?)<\/h2>/);
+            const title = titleMatch ? titleMatch[1] : "Custom Hat Pattern";
+            
+            // Convert HTML to plain text (very simplified)
+            let plainText = patternHTML
+                .replace(/<h2>(.*?)<\/h2>/g, '$1\n\n')
+                .replace(/<h3>(.*?)<\/h3>/g, '\n$1\n')
+                .replace(/<p><strong>(.*?)<\/strong>(.*?)<\/p>/g, '$1$2\n')
+                .replace(/<p>(.*?)<\/p>/g, '$1\n')
+                .replace(/<ul>(.*?)<\/ul>/g, '$1\n')
+                .replace(/<li>(.*?)<\/li>/g, '• $1\n')
+                .replace(/<br>/g, '\n')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .replace(/<[^>]*>/g, '');
+            
+            // Split text into lines and add to PDF
+            const lines = plainText.split('\n');
+            let y = 10;
+            let pageHeight = doc.internal.pageSize.height;
+            
+            // Add title
+            doc.setFontSize(16);
+            doc.text(title, 10, y);
+            y += 10;
+            
+            // Add rest of content
+            doc.setFontSize(12);
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line === '') continue;
+                
+                // Check if we need a new page
+                if (y > pageHeight - 20) {
+                    doc.addPage();
+                    y = 20;
+                }
+                
+                // Check if this is a section header
+                if (i > 0 && lines[i-1] === '' && lines[i+1] === '') {
+                    doc.setFont(undefined, 'bold');
+                    doc.text(line, 10, y);
+                    doc.setFont(undefined, 'normal');
+                } else {
+                    doc.text(line, 10, y);
+                }
+                
+                y += 7;
+            }
+            
+            // Save the PDF
+            doc.save(`${title.replace(/\s+/g, '-').toLowerCase()}.pdf`);
+        }
+
+        // Event listener for generate button
+        document.getElementById('generate-button').addEventListener('click', function() {
+            // Show loading indicator
+            const outputDiv = document.getElementById('pattern-output');
+            outputDiv.style.display = 'block';
+            outputDiv.innerHTML = '<div class="loading">Generating your custom pattern...</div>';
+            
+            // Short delay to allow the UI to update
+            setTimeout(function() {
+                // Generate the pattern
+                const pattern = generatePattern();
+                
+                // Display the pattern
+                outputDiv.innerHTML = pattern;
+                
+                // Scroll to the pattern
+                outputDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        });
+        
+        // Event listener for download PDF button
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            const outputDiv = document.getElementById('pattern-output');
+            
+            // Check if pattern has been generated
+            if (outputDiv.style.display === 'none' || outputDiv.innerHTML === '' || outputDiv.innerHTML.includes('Generating your custom pattern')) {
+                alert('Please generate a pattern first before downloading.');
+                return;
+            }
+            
+            // Show loading indicator
+            const originalContent = outputDiv.innerHTML;
+            outputDiv.innerHTML += '<div class="loading">Preparing PDF for download...</div>';
+            
+            // Short delay to allow the UI to update
+            setTimeout(function() {
+                // Generate PDF from the current pattern
+                generatePDF(originalContent);
+                
+                // Restore the original content
+                outputDiv.innerHTML = originalContent;
+            }, 300);
+        });
+    </script>
+</body>
+</html>
